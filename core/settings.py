@@ -24,8 +24,8 @@ DEBUG = env('DEBUG')
 ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets') 
 
 # load production server from .env
-ALLOWED_HOSTS = ['aa8d-149-113-200-229.ngrok-free.app', 'localhost', '127.0.0.1', env('SERVER', default='127.0.0.1')]
-CSRF_TRUSTED_ORIGINS = ['https://aa8d-149-113-200-229.ngrok-free.app', 'http://localhost:85', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
+ALLOWED_HOSTS = ['web-production-462b.up.railway.app', 'localhost', '127.0.0.1', env('SERVER', default='127.0.0.1')]
+CSRF_TRUSTED_ORIGINS = ['https://web-production-462b.up.railway.app', 'http://localhost:85', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
 
 # Application definition
 
