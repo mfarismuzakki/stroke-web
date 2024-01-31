@@ -150,7 +150,8 @@ class Index
                     `);
                 },
                 error: function(error) {
-                    alert('Error:', error);
+                    console.log(error.responseText)
+                    alert('Error: ' +  error.statusText);
                 },
                 complete: function(){
                     $('#loader').addClass('display-none');
