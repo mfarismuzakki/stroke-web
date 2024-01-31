@@ -4,6 +4,9 @@ FROM python:3.9
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+RUN apt-get update && \
+    apt-get install -y libgl1-mesa-glx
+
 COPY requirements.txt .
 # install python dependencies
 RUN pip install --upgrade pip
@@ -23,8 +26,8 @@ RUN python manage.py collectstatic --noinput
 
 # gunicorn
 # RUN /bin/bash -c '/run.sh' 
-RUN /bin/bash -c 'python manage runserver' 
+# CMD ["python manage.py runserver"]
 
 # ENTRYPOINT ["/run.sh"]
-# CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
+CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
 # CMD ["/run.sh"]
