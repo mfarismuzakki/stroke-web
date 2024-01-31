@@ -1,0 +1,200 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Sistem Rekomendasi Stroke {% endblock %} 
+
+<!-- Element injected in the BODY element -->
+{% block body_class %} sidebar-mini layout-fixed {% endblock body_class %} 
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+  <style>
+    #image-container {
+      text-align: center;
+  }
+
+    .display-none {
+      display: none !important;
+  }
+
+    .image-row {
+      margin-top: 10px;
+    }
+  
+  .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0,0,0,.8);
+      z-index: 999;
+      opacity: 1;
+      transition: all 0.5s;
+  }
+   
+  .lds-dual-ring {
+      display: inline-block;
+  }
+
+  .lds-dual-ring:after {
+      content: " ";
+      display: block;
+      width: 64px;
+      height: 64px;
+      margin: 5% auto;
+      border-radius: 50%;
+      border: 6px solid #fff;
+      border-color: #fff transparent #fff transparent;
+      animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+      0% {
+          transform: rotate(0deg);
+      }
+      100% {
+          transform: rotate(360deg);
+      }
+  }
+  </style>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{{ ASSETS_ROOT }}/plugins/fontawesome-free/css/all.min.css">
+  <!-- IonIcons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% endblock stylesheets %}
+
+{% block content %}    
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item"><a href="#">Sistem Rekomendasi Thrombolysis Pada Pasien Stroke</a></li>
+              <li class="breadcrumb-item"><a href="#">Versi Model: 1.0.0</a></li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <!-- /.content-header -->
+    
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        
+        <div class="container mt-5">
+          {% csrf_token %}
+            <!-- Dropdown -->
+            <div class="form-group">
+              <label for="dropdown">Pilihan Tipe Data:</label>
+              <select class="form-control" id="dropdown">
+                <option value=1>CT</option>
+                <option value=2>CT dan Klinik</option>
+                <option value=3>CT, Klinik, dan Lab</option>
+              </select>
+            </div>
+            
+            <!-- Input file -->
+            <h4>CT (Dicom Files)</h4>
+            <div class="form-group">
+              <label for="file">Files (.dcm):</label>
+              <input type="file" class="form-control-file" id="file" accept=".dcm" multiple>
+            </div>
+            
+            <!-- Float input labels -->
+            <div id="klinik-container" style="display:none">
+              <h4>Klinik</h4>
+              <div class="form-group">
+                <label for="awitan">Awitan:</label>
+                <input type="number" class="form-control" id="awitan" placeholder="Masukkan nilai awitan" pattern="[0-9]+(\.[0-9]+)?">
+              </div>
+              <div class="form-group">
+                <label for="usia">Usia:</label>
+                <input type="number" class="form-control" id="usia" placeholder="Masukkan nilai usia" pattern="[0-9]+(\.[0-9]+)?">
+              </div>
+              <div class="form-group">
+                <label for="tensi_atas">Tensi Atas:</label>
+                <input type="number" class="form-control" id="tensi_atas" placeholder="Masukkan nilai tensi atas" pattern="[0-9]+(\.[0-9]+)?">
+              </div>
+              <div class="form-group">
+                <label for="tensi_bawah">Tensi Bawah:</label>
+                <input type="number" class="form-control" id="tensi_bawah" placeholder="Masukkan nilai tensi bawah" pattern="[0-9]+(\.[0-9]+)?">
+              </div>
+            </div>
+            
+            <div id="lab-container" style="display:none">
+              <h4>Lab</h4>
+              <!-- Additional float input labels for Klinik -->
+              <div class="form-group">
+                <label for="pt">PT:</label>
+                <input type="number" class="form-control" id="pt" placeholder="Masukkan nilai pt" pattern="[0-9]+(\.[0-9]+)?">
+              </div>
+              <div class="form-group">
+                <label for="aptt">APTT:</label>
+                <input type="number" class="form-control" id="aptt" placeholder="Masukkan nilai aptt" pattern="[0-9]+(\.[0-9]+)?">
+              </div>
+              
+              <!-- Additional float input labels for Lab -->
+              <div class="form-group">
+                <label for="fibrinogen">Fibrinogen:</label>
+                <input type="number" class="form-control" id="fibrinogen" placeholder="Masukkan nilai fibrinogen" pattern="[0-9]+(\.[0-9]+)?">
+              </div>
+              <div class="form-group">
+                <label for="gds">GDS:</label>
+                <input type="number" class="form-control" id="gds" placeholder="Masukkan nilai gds" pattern="[0-9]+(\.[0-9]+)?">
+              </div>
+            </div>
+              
+            <!-- Submit button -->
+            <button id="btn-submit"class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+      <!-- /.container-fluid -->
+
+      <div class="modal fade" id="modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="dag-name-title">Hasil Analisis</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div id="alert-result">
+              </div>
+              <div>
+                <canvas id="myChart"></canvas>
+              </div>
+              <div id="image-container">              
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <div id="loader" class="lds-dual-ring display-none overlay"></div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+  
+  <script src="{{ ASSETS_ROOT }}/js/index.js"></script>
+
+{% endblock javascripts %}
