@@ -23,7 +23,8 @@ RUN python manage.py collectstatic --noinput
 
 # gunicorn
 # RUN /bin/bash -c '/run.sh' 
+RUN /bin/bash -c 'python manage runserver' 
 
 # ENTRYPOINT ["/run.sh"]
-CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
+# CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
 # CMD ["/run.sh"]
