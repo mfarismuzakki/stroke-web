@@ -9,9 +9,9 @@ class Index
 
     onChangeDataype()
     {
-        $("#dropdown").change(function() 
+        $('input[name="add"]').change(function()
         {
-            let data_type = $('option:selected', this).val();
+            let data_type = $('input[name="add"]:checked').val();
             
             if(data_type == '1')
             {
@@ -35,7 +35,7 @@ class Index
             const url = '/apis/dashboard';
             let that = this;
             // Mendapatkan nilai dari elemen-elemen formulir menggunakan jQuery
-            const dropdownValue = $('#dropdown').val();
+            const dropdownValue = $('input[name="add"]:checked').val();
             const fileInput = $('#file')[0].files;
             const awitan = $('#awitan').val();
             const usia = $('#usia').val();

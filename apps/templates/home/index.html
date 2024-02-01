@@ -54,6 +54,7 @@
           transform: rotate(360deg);
       }
   }
+  body{background-color:white}.card{width:400px;background-color:#fff;border:none;border-radius: 12px}label.radio{cursor: pointer;width: 100%}label.radio input{position: absolute;top: 0;left: 0;visibility: hidden;pointer-events: none}label.radio span{padding: 7px 14px;border: 2px solid #eee;display: inline-block;color: #039be5;border-radius: 10px;width: 100%;height: 48px;line-height: 27px}label.radio input:checked+span{border-color: #039BE5;background-color: #81D4FA;color: #fff;border-radius: 9px;height: 48px;line-height: 27px}.form-control{margin-top: 10px;height: 48px;border: 2px solid #eee;border-radius: 10px}.form-control:focus{box-shadow: none;border: 2px solid #039BE5}.agree-text{font-size: 12px}.terms{font-size: 12px;text-decoration: none;color: #039BE5}.confirm-button{height: 50px;border-radius: 10px}
   </style>
 
   <!-- Google Font: Source Sans Pro -->
@@ -92,20 +93,26 @@
         <div class="container mt-5">
           {% csrf_token %}
             <!-- Dropdown -->
-            <div class="form-group">
+            <div>
               <label for="dropdown">Pilihan Tipe Data:</label>
-              <select class="form-control" id="dropdown">
-                <option value=1>CT</option>
-                <option value=2>CT dan Klinik</option>
-                <option value=3>CT, Klinik, dan Lab</option>
-              </select>
+              <div class="d-flex flex-row">
+                <label class="radio mr-1"> 
+                  <input type="radio" name="add" value="1" checked> <span> CT</span>
+                </label> 
+                <label 
+                  class="radio"> <input type="radio" name="add" value="2"> <span>CT dan Klinis</span> 
+                </label> 
+                <label 
+                  class="radio"> <input type="radio" name="add" value="3"> <span>CT, Klinis, dan Lab</span> 
+                </label> 
+              </div>
             </div>
             
             <!-- Input file -->
             <h4>CT (Dicom Files)</h4>
-            <div class="form-group">
-              <label for="file">Files (.dcm):</label>
-              <input type="file" class="form-control-file" id="file" accept=".dcm" multiple>
+            <div class="form-group">              
+              <label for="file" class="form-label">Files (.dcm):</label>
+              <input class="form-control" type="file" id="file" accept=".dcm" multiple>
             </div>
             
             <!-- Float input labels -->
@@ -113,19 +120,19 @@
               <h4>Klinik</h4>
               <div class="form-group">
                 <label for="awitan">Awitan:</label>
-                <input type="number" class="form-control" id="awitan" placeholder="Masukkan nilai awitan" pattern="[0-9]+(\.[0-9]+)?">
+                <input type="number" class="form-control" id="awitan" placeholder="Masukkan nilai awitan" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               <div class="form-group">
                 <label for="usia">Usia:</label>
-                <input type="number" class="form-control" id="usia" placeholder="Masukkan nilai usia" pattern="[0-9]+(\.[0-9]+)?">
+                <input type="number" class="form-control" id="usia" placeholder="Masukkan nilai usia" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               <div class="form-group">
                 <label for="tensi_atas">Tensi Atas:</label>
-                <input type="number" class="form-control" id="tensi_atas" placeholder="Masukkan nilai tensi atas" pattern="[0-9]+(\.[0-9]+)?">
+                <input type="number" class="form-control" id="tensi_atas" placeholder="Masukkan nilai tensi atas" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               <div class="form-group">
                 <label for="tensi_bawah">Tensi Bawah:</label>
-                <input type="number" class="form-control" id="tensi_bawah" placeholder="Masukkan nilai tensi bawah" pattern="[0-9]+(\.[0-9]+)?">
+                <input type="number" class="form-control" id="tensi_bawah" placeholder="Masukkan nilai tensi bawah" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
             </div>
             
@@ -134,21 +141,21 @@
               <!-- Additional float input labels for Klinik -->
               <div class="form-group">
                 <label for="pt">PT:</label>
-                <input type="number" class="form-control" id="pt" placeholder="Masukkan nilai pt" pattern="[0-9]+(\.[0-9]+)?">
+                <input type="number" class="form-control" id="pt" placeholder="Masukkan nilai pt" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               <div class="form-group">
                 <label for="aptt">APTT:</label>
-                <input type="number" class="form-control" id="aptt" placeholder="Masukkan nilai aptt" pattern="[0-9]+(\.[0-9]+)?">
+                <input type="number" class="form-control" id="aptt" placeholder="Masukkan nilai aptt" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               
               <!-- Additional float input labels for Lab -->
               <div class="form-group">
                 <label for="fibrinogen">Fibrinogen:</label>
-                <input type="number" class="form-control" id="fibrinogen" placeholder="Masukkan nilai fibrinogen" pattern="[0-9]+(\.[0-9]+)?">
+                <input type="number" class="form-control" id="fibrinogen" placeholder="Masukkan nilai fibrinogen" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               <div class="form-group">
                 <label for="gds">GDS:</label>
-                <input type="number" class="form-control" id="gds" placeholder="Masukkan nilai gds" pattern="[0-9]+(\.[0-9]+)?">
+                <input type="number" class="form-control" id="gds" placeholder="Masukkan nilai gds" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
             </div>
               
