@@ -54,6 +54,10 @@
           transform: rotate(360deg);
       }
   }
+  .modal-body table td {
+    word-wrap: break-word;
+    white-space: normal;
+  }
   body{background-color:white}.card{width:400px;background-color:#fff;border:none;border-radius: 12px}label.radio{cursor: pointer;width: 100%}label.radio input{position: absolute;top: 0;left: 0;visibility: hidden;pointer-events: none}label.radio span{padding: 7px 14px;border: 2px solid #eee;display: inline-block;color: #039be5;border-radius: 10px;width: 100%;height: 48px;line-height: 27px}label.radio input:checked+span{border-color: #039BE5;background-color: #81D4FA;color: #fff;border-radius: 9px;height: 48px;line-height: 27px}.form-control{margin-top: 10px;height: 48px;border: 2px solid #eee;border-radius: 10px}.form-control:focus{box-shadow: none;border: 2px solid #039BE5}.agree-text{font-size: 12px}.terms{font-size: 12px;text-decoration: none;color: #039BE5}.confirm-button{height: 50px;border-radius: 10px}
   </style>
 
@@ -120,19 +124,19 @@
               <h4>Klinik</h4>
               <div class="form-group">
                 <label for="awitan">Awitan:</label>
-                <input type="number" class="form-control" id="awitan" placeholder="Masukkan nilai awitan" pattern="[0-9]+(\.[0-9]+)?" required>
+                <input type="number" class="form-control" id="awitan" placeholder="menit" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               <div class="form-group">
                 <label for="usia">Usia:</label>
-                <input type="number" class="form-control" id="usia" placeholder="Masukkan nilai usia" pattern="[0-9]+(\.[0-9]+)?" required>
+                <input type="number" class="form-control" id="usia" placeholder="tahun" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               <div class="form-group">
                 <label for="tensi_atas">Tensi Atas:</label>
-                <input type="number" class="form-control" id="tensi_atas" placeholder="Masukkan nilai tensi atas" pattern="[0-9]+(\.[0-9]+)?" required>
+                <input type="number" class="form-control" id="tensi_atas" placeholder="sistolik mm hg" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               <div class="form-group">
                 <label for="tensi_bawah">Tensi Bawah:</label>
-                <input type="number" class="form-control" id="tensi_bawah" placeholder="Masukkan nilai tensi bawah" pattern="[0-9]+(\.[0-9]+)?" required>
+                <input type="number" class="form-control" id="tensi_bawah" placeholder="diastolik mm hg" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
             </div>
             
@@ -141,21 +145,21 @@
               <!-- Additional float input labels for Klinik -->
               <div class="form-group">
                 <label for="pt">PT:</label>
-                <input type="number" class="form-control" id="pt" placeholder="Masukkan nilai pt" pattern="[0-9]+(\.[0-9]+)?" required>
+                <input type="number" class="form-control" id="pt" placeholder="pasien detik" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               <div class="form-group">
                 <label for="aptt">APTT:</label>
-                <input type="number" class="form-control" id="aptt" placeholder="Masukkan nilai aptt" pattern="[0-9]+(\.[0-9]+)?" required>
+                <input type="number" class="form-control" id="aptt" placeholder="pasien detik" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               
               <!-- Additional float input labels for Lab -->
               <div class="form-group">
                 <label for="fibrinogen">Fibrinogen:</label>
-                <input type="number" class="form-control" id="fibrinogen" placeholder="Masukkan nilai fibrinogen" pattern="[0-9]+(\.[0-9]+)?" required>
+                <input type="number" class="form-control" id="fibrinogen" placeholder="mg/dl" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
               <div class="form-group">
                 <label for="gds">GDS:</label>
-                <input type="number" class="form-control" id="gds" placeholder="Masukkan nilai gds" pattern="[0-9]+(\.[0-9]+)?" required>
+                <input type="number" class="form-control" id="gds" placeholder="glukosa darah sewaktu, mg/dl" pattern="[0-9]+(\.[0-9]+)?" required>
               </div>
             </div>
               
@@ -177,8 +181,30 @@
             <div class="modal-body">
               <div id="alert-result">
               </div>
+
               <div>
                 <canvas id="myChart"></canvas>
+              </div>
+              <br>
+              <div class="table-responsive">
+                <p>keterangan</p>
+                <table class="table table-striped">
+                  <tr>
+                    <td>tidak signifikan</td>
+                    <td>:</td>
+                    <td>Persentase kemungkinan pasien tidak akan mengalami penurunan nilai NIHSS yang signifikan paska terapi trombolisis</td>
+                  </tr>
+                  <tr>
+                    <td>signifikan</td>
+                    <td>:</td>
+                    <td>Persentasi pasien kemungkinan akan mengalami penurunan nilai NIHSS yang signifikan paska terapi trombolisis</td>
+                  </tr>
+                  <tr>
+                    <td>disclaimer</td>
+                    <td>:</td>
+                    <td>hasil diatas merupakan suatu rekomendasi untuk penentuan pemberian terapi trombolisis pada pasien stroke iskemik dan masih dalam proses pengembangan dan tidak dapat mengantikan keputusan klinisi di lapangan</td>
+                  </tr>
+                </table>
               </div>
               <div id="image-container">              
               </div>
